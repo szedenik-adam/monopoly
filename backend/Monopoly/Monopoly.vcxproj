@@ -166,6 +166,9 @@
     <ClInclude Include="websock\tools.h" />
     <ClInclude Include="websock\websocket.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Monopoly.vcproj" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

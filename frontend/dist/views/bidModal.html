@@ -1,0 +1,34 @@
+<div class="modal-header">
+  <h3 class="modal-title">Place your bid</h3>
+</div>
+<div class="modal-body">
+  <div>Time is running fast! <b>{{vm.remainingTime}}</b> seconds left!</div>
+  <form ng-submit="vm.ok()">
+    <div>The highest bid is given by <b>{{vm.getBidWinner()}} ({{vm.gameState.bid.highestbid | money}})</b>.</div>
+    Place bud: <input type="number" ng-model="vm.bid" />
+    <div ng-if="vm.bid <= 0">
+      Your bid cannot be zero or smaller.
+    </div>
+    <div ng-if="vm.bid <= vm.gameState.bid.highestbid">
+      Your bid must be higher than {{vm.gameState.bid.highestbid | money}}.
+    </div>
+    <div class="clearfix">
+      <b> Quick bidding </b>
+      <div class="button-group">
+        <Button class="btn btn-default" type="button" ng-click="vm.placebid(20)">
+          +20
+        </Button>
+        <Button class="btn btn-primary" type="button" ng-click="vm.placebid(100)">
+          +100
+        </Button>
+        <Button class="btn btn-danger" type="button" ng-click="vm.placebid(1000)">
+          +1000
+        </Button>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" type="button" ng-click="vm.ok()" ng-disabled="vm.bid <= 0 || vm.bid == null || vm.bid == '' || vm.bid <= vm.gameState.bid.highestbid">OK</button>
+  <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+</div>

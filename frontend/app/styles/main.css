@@ -1,0 +1,32 @@
+html, body {
+  height: 100%;
+}
+
+#content.ng-enter {
+  animation: slideInLeft 1s;
+}
+
+#content.ng-leave {
+  animation: zoomOut 1s;
+}
+
+#logo {
+  width: 115px;
+}
+
+.toolbar {
+  margin-bottom: 1em;
+}
+
+.boardContainer {
+  height: 85vh;
+  width: 100vm;
+  background: white;
+  overflow-y: hidden;
+}
+
+.gameInfo {
+  position: absolute;
+  background: transparent;
+}
+

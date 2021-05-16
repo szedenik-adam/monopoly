@@ -1,0 +1,34 @@
+<h1 class="cover-heading">Rooms <span class="badge">{{vm.rooms.length}}</span></h1>
+<div class="clearfix toolbar">
+  <Button class="btn btn-primary pull-right" ui-sref="newroom">
+    <i class="glyphicon glyphicon-plus"></i>
+    Create a room
+  </Button>
+</div>
+<div>
+  <div class="panel panel-default" ng-repeat="room in vm.rooms">
+    <div class="panel-heading">
+      {{room.name}}
+    </div>
+    <div class="panel-body">
+    <span class="pull-right" ng-if="!room.full && !room.closed">
+      <span ng-if="room.full">This room is full.</span>
+      <span ng-if="room.started">The game has started.</span>
+      <Button class="btn btn-primary" ng-click="vm.join(room)" ng-if="!vm.isMemberOf(room) && !room.started">
+        <i class="glyphicon glyphicon-ok"></i>
+        Join
+      </Button>
+      <Button class="btn btn-default" ng-click="vm.enter(room)" ng-if="vm.isMemberOf(room)">
+        <i class="glyphicon glyphicon-road"></i>
+        Enter
+      </Button>
+    </span>
+      <blockquote ng-if="vm.isMemberOf(room)">You have already joined this room. Enter to the room to make your move!</blockquote>
+      Players:
+      <ul>
+        <li ng-repeat="player in room.players">{{player.name}}</li>
+      </ul>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,48 @@
+<div class="gameInfo">
+  <div id="menu">
+    <h4>{{vm.gameState.round}}. round</h4>
+
+    <div><b>Next player:</b> {{vm.gameState._players[vm.gameState._nextplayer].name}}</div>
+    <div><b>Your balance:</b> {{vm.gameState._players[vm.getMyIndex()].money | money}}</div>
+    <div>
+      <div class="btn-group" role="group">
+        <Button class="btn btn-default" ng-disabled="!vm.canRoll()" ng-click="vm.roll()">Roll</Button>
+        <Button class="btn btn-primary" ng-disabled="!vm.canBuy()" ng-click="vm.buyField()" ng-hide="vm.isInJail()">
+          Buy
+          <span ng-if="vm.getPropertyAtMyPos() != null">
+             ({{vm.getPropertyAtMyPos().value | money}})
+          </span>
+        </Button>
+        <Button class="btn btn-info" ng-disabled="!vm.canSell()" ng-click="vm.sell()" ng-hide="vm.isInJail()">Sell
+        </Button>
+            <span class="button-group" role="group" dropdown ng-show="vm.isInJail()">
+              <button id="leavejail-button" type="button" class="btn btn-default" dropdown-toggle>
+                Leave jail
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="leavejail-button">
+                <li><a class="btn btn-link" ng-click="vm.leaveJail('pay')">Pay</a></li>
+                <li><a class="btn btn-link" ng-click="vm.leaveJail('card')" ng-hide="!vm.hasJailCard()">Play off
+                  jailcard</a></li>
+              </ul>
+            </span>
+        <Button class="btn btn-danger" ng-disabled="!vm.canEnd()" ng-click="vm.endTurn()">End</Button>
+      </div>
+    </div>
+    <div ng-if="vm.getLastCard() != null">
+      <b>{{vm.getLastCard()}}</b>
+    </div>
+  </div>
+  <div id="users">
+    <h5>Players</h5>
+    <ol>
+      <li ng-repeat="player in vm.gameState._players  | orderBy:'-money'">
+        <span
+          style="width: 5em; height: 5em; padding-left: 2em; background-color: #{{vm.RoomService.getColorForPlayer(vm.getIndexOfPlayer(player.name)).toString(16)}}"></span>
+        {{player.name}}: {{player.money | money}}
+      </li>
+    </ol>
+  </div>
+</div>
+<div class="boardContainer" game-board room-id="vm.room.id">
+</div>

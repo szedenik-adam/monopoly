@@ -1,0 +1,36 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+
+###############
+# Build steps #
+###############
+# apt-get install cmake
+# mv FindLibEvent.cmake /usr/share/cmake-2.8/Modules/FindLibEvent.cmake
+# apt-get install libevent-dev
+# cmake . -DCMAKE_CXX_COMPILER=/usr/bin/g++
+# make
+#http://www.cmake.org/Wiki/CMake_Useful_Variables
+
+
+project(monopoly)
+SET(VERSION_MAJOR "1")
+SET(VERSION_MINOR "0")
+SET(VERSION_PATCH "0")
+SET(VERSION "$(VERSION_MAJOR).$(VERSION_MINOR).$(VERSION_PATCH)")
+
+FIND_PACKAGE(LibEvent)
+
+INCLUDE_DIRECTORIES(${LIBEVENT_INCLUDE_DIR})
+LINK_DIRECTORIES("/opt/libevent/lib")
+MESSAGE(${LIBEVENT_LIB})
+MESSAGE(${LIBEVENT_INCLUDE_DIR})
+
+SET(GCC_COVERAGE_COMPILE_FLAGS "-std=c++0x")
+SET(GCC_COVERAGE_LINK_FLAGS    "-L. -levent -levent_core -levent_extra")
+SET( CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}" )
+SET( CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS}" )
+
+file(GLOB_RECURSE SRCS "Monopoly/*.cpp" "Monopoly/*.c")
+file(GLOB_RECURSE HDRS "Monopoly/*.h")
+
+ADD_EXECUTABLE(monopoly ${SRCS} ${HDRS})
+TARGET_LINK_LIBRARIES(monopoly ${LIBEVENT_LIB})

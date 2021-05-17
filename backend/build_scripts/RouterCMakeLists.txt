@@ -1,0 +1,46 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+###############
+# Build steps #
+###############
+# apt install cmake
+# OpenWRT SDK: https://downloads.openwrt.org/barrier_breaker/14.07/ramips/mt7620n/OpenWrt-SDK-ramips-for-linux-x86_64-gcc-4.8-linaro_uClibc-0.9.33.2.tar.bz2
+# sudo ln -s /usr/bin/mips-linux-gnu-g++ /opt/mips_linux_toolchain/bin/mips-linux-gnu-g++
+# cmake . -DCMAKE_CXX_COMPILER=/opt/mips_linux_toolchain/bin/mips-linux-gnu-g++
+# make
+# http://www.cmake.org/Wiki/CMake_Useful_Variables
+# export STAGING_DIR=/home/cloud/OpenWrt-SDK-ramips-for-linux-x86_64-gcc-4.8-linaro_uClibc-0.9.33.2/staging_dir
+
+project(monopoly)
+SET(VERSION_MAJOR "1")
+SET(VERSION_MINOR "0")
+SET(VERSION_PATCH "0")
+SET(VERSION "$(VERSION_MAJOR).$(VERSION_MINOR).$(VERSION_PATCH)")
+
+#FIND_PACKAGE(LibEvent)
+#INCLUDE_DIRECTORIES(" /opt/libevent/include")
+#LINK_DIRECTORIES(" /opt/libevent/lib")
+#MESSAGE(${LIBEVENT_LIB})
+INCLUDE_DIRECTORIES("OpenWrt-SDK-ramips-for-linux-x86_64-gcc-4.8-linaro_uClibc-0.9.33.2/staging_dir/target-mipsel_24kec+dsp_uClibc-0.9.33.2/usr/include")
+LINK_DIRECTORIES("OpenWrt-SDK-ramips-for-linux-x86_64-gcc-4.8-linaro_uClibc-0.9.33.2/staging_dir/target-mipsel_24kec+dsp_uClibc-0.9.33.2/usr/lib")
+message(${CMAKE_CURRENT_SOURCE_DIR})
+
+# Select the first compiler when compiling on target, use the second line when cross compiling.
+#SET(CMAKE_CXX_COMPILER "/usr/bin/mips-linux-gnu-g++" )
+SET(CMAKE_CXX_COMPILER "OpenWrt-SDK-ramips-for-linux-x86_64-gcc-4.8-linaro_uClibc-0.9.33.2/staging_dir/toolchain-mipsel_24kec+dsp_gcc-4.8-linaro_uClibc-0.9.33.2/bin/mipsel-openwrt-linux-uclibc-c++" )
+
+SET(GCC_COVERAGE_COMPILE_FLAGS "-std=c++0x -EL -march=24kec") # -static # Problems with static.
+SET(GCC_COVERAGE_LINK_FLAGS    "-LOpenWrt-SDK-ramips-for-linux-x86_64-gcc-4.8-linaro_uClibc-0.9.33.2/staging_dir/target-mipsel_24kec+dsp_uClibc-0.9.33.2/usr/lib -lstdc++ -levent -levent_core -levent_extra")
+SET(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}" )
+SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS}" )
+
+file(GLOB_RECURSE SRCS "Monopoly/*.cpp" "Monopoly/*.c")
+file(GLOB_RECURSE HDRS "Monopoly/*.h")
+
+ADD_EXECUTABLE(monopoly ${SRCS} ${HDRS})
+#TARGET_LINK_LIBRARIES(monopoly "/usr/local/lib/libevent.so")
+#TARGET_LINK_LIBRARIES(monopoly "/usr/lib/x86_64-linux-gnu/libevent.so")
+#TARGET_LINK_LIBRARIES(monopoly "OpenWrt-SDK-ramips-for-linux-x86_64-gcc-4.8-linaro_uClibc-0.9.33.2/staging_dir/target-mipsel_24kec+dsp_uClibc-0.9.33.2/usr/lib/libevent.so")
+#TARGET_LINK_LIBRARIES(monopoly "cloud/OpenWrt-SDK-ramips-for-linux-x86_64-gcc-4.8-linaro_uClibc-0.9.33.2/staging_dir/target-mipsel_24kec+dsp_uClibc-0.9.33.2/usr/lib/libuClibc++.a")
+
+##TARGET_LINK_LIBRARIES(monopoly "OpenWrt-SDK-ramips-for-linux-x86_64-gcc-4.8-linaro_uClibc-0.9.33.2/staging_dir/target-mipsel_24kec+dsp_uClibc-0.9.33.2/usr/lib/libevent.a")
+##TARGET_LINK_LIBRARIES(monopoly "OpenWrt-SDK-ramips-for-linux-x86_64-gcc-4.8-linaro_uClibc-0.9.33.2/staging_dir/toolchain-mipsel_24kec+dsp_gcc-4.8-linaro_uClibc-0.9.33.2/mipsel-openwrt-linux-uclibc/lib/libstdc++.a")

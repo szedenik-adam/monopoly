@@ -1,11 +1,11 @@
-Ôªø# monopoly
+# monopoly
 Browser based online multiplayer monopoly game written in C++ (backend) and Typescript (frontend).
 
 ## Compile guide
 ### Frontend
 1. Step into the frontend folder.
 2. Run **npm  install** to install the dependencies.
-3. Install grunt with the **npm install ‚Äìg grunt-cli** command.
+3. Install grunt with the **npm install ñg grunt-cli** command.
 4. Build the frontend with the **grunt build** command.
 ### Backend - Windows
 1. Install dependencies: **vcpkg install libevent:x64-windows-static curl:x64-windows**
@@ -28,9 +28,9 @@ Browser based online multiplayer monopoly game written in C++ (backend) and Type
 3. Step into the repo's backend directory **cd monopoly/backend**
 4. Download OpenWRT SDK: **wget https://downloads.openwrt.org/barrier_breaker/14.07/ramips/mt7620n/OpenWrt-SDK-ramips-for-linux-x86_64-gcc-4.8-linaro_uClibc-0.9.33.2.tar.bz2**
 5. Extract the archive: **tar -xf OpenWrt-SDK-ramips-for-linux-x86_64-gcc-4.8-linaro_uClibc-0.9.33.2.tar.bz2**
-6. Copy the CMakeLists file to the project root directory: **cp build_scripts/RouterCMakeLists.txt CMakeLists.txt**
-7. Set staging dir for the compiler: **export STAGING_DIR=/home/cloud/OpenWrt-SDK-ramips-for-linux-x86_64-gcc-4.8-linaro_uClibc-0.9.33.2/staging_dir**
-9. Generate makefile: **cmake . -DCMAKE_CXX_COMPILER=/opt/mips_linux_toolchain/bin/mips-linux-gnu-g++**
+6. Copy the CMakeLists file to the project root directory: **cp build_scripts/RouterStaticCMakeLists.txt CMakeLists.txt**
+7. Set staging dir for the compiler: **export STAGING_DIR=OpenWrt-SDK-ramips-for-linux-x86_64-gcc-4.8-linaro_uClibc-0.9.33.2/staging_dir**
+9. Generate makefile: **cmake .**
 10. Build: **make**
 
 ## Screenshots
@@ -39,6 +39,6 @@ Browser based online multiplayer monopoly game written in C++ (backend) and Type
 ![table demo image](doc/image/table_demo_2.png)
 
 ## Authors
-M√°rton B√°lint - frontend
+M·rton B·lint - frontend
 
-√Åd√°m Szedenik - backend
+¡d·m Szedenik - backend

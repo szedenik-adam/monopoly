@@ -4,6 +4,8 @@
 #include <winsock2.h>
 #include <windows.h>
 #include <io.h>
+#else
+#include <unistd.h>
 #endif
 
 #include <sys/types.h>
